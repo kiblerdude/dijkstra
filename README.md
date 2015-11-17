@@ -2,7 +2,9 @@
 
 Dijkstra's Shortest Path Algorithm
 
-### Algorithm
+Given a directed graph `G` where each edge has a non-negative length `l` and a source vertex `s`.
+
+##### Algorithm
 
 	ShortestPath(Vertice s, Vertice t)
 
@@ -16,4 +18,12 @@ Dijkstra's Shortest Path Algorithm
 		- add w to X
 		- set A[w*] = A[v*] + len(w)
 
-	
+##### Example
+
+	s->v = 1
+	s->w = 4
+	v->v = 2
+	v->t = 6
+	w->t = 3
+
+	shortest path (s,t) = s->v->w->t = 6
