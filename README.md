@@ -1,6 +1,6 @@
 # dijkstra
 
-Dijkstra's Shortest Path Algorihtm
+Dijkstra's Shortest Path Algorithm
 
 ### Algorithm
 
