@@ -8,18 +8,19 @@ public class Graph {
 	
 	public Map<Integer, Node> nodes = Maps.newHashMap();
 	
-	public void addNode(Node node) {
-		nodes.put(node.value, node);
-	}
-	
-	public void addEdge(Integer from, Integer to) {
+	public void addEdge(Integer from, Integer to, Integer length) {
 		if (nodes.containsKey(from)) {
 			Node node = nodes.get(from);
-			node.outgoing.add(to);
+			node.outgoing.put(to, length);
 		} else {
-			Node node = new Node(from, 0);
-			node.outgoing.add(to);
+			Node node = new Node(from);
+			node.outgoing.put(to, length);
 			nodes.put(from, node);
+		}
+		
+		if (!nodes.containsKey(to)) {
+			Node node = new Node(to);
+			nodes.put(to, node);
 		}
 	}
 	

@@ -2,7 +2,7 @@
 
 Dijkstra's Shortest Path Algorithm
 
-Given a directed graph `G` where each edge has a non-negative length `l` and a source vertex `s`.
+Given a directed graph `G` where each edge has a non-negative length `l` and a source vertex `s`, finds the shortest path to a target vertex `t`.
 
 ##### Algorithm
 
@@ -10,7 +10,6 @@ Given a directed graph `G` where each edge has a non-negative length `l` and a s
 
 	X = { s }	// vertices processed so far
 	A[s] = 0	// computed shortest path distances
-	B[s] = (empty)	// computed shortest path
 
 	while vertice v not in X
 		-among all edges (v,w) in G, with v in X and w not in X,

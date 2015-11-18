@@ -1,22 +1,21 @@
 package com.kiblerdude.dijkstra;
 
 import java.util.Iterator;
-import java.util.Set;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 
 public class Node {
+	
 	public Integer value = -1;
-	public Integer weight = Integer.MAX_VALUE;
-	public Set<Integer> outgoing = Sets.newTreeSet(); // use natural ordering
-	public Iterator<Integer> iter = outgoing.iterator();
+	public Map<Integer, Integer> outgoing = Maps.newHashMap();
+	public Iterator<Entry<Integer,Integer>> iter = outgoing.entrySet().iterator();
 	
 	public boolean explored = false;
 	
-	public Node(Integer value, Integer weight) {
+	public Node(Integer value) {
 		this.value = value;
-		this.weight = weight;
 	}
 	
 	@Override
@@ -38,10 +37,12 @@ public class Node {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(value).append(" (");
-		builder.append(Joiner.on(",").join(weight, explored));
-		builder.append(")").append(" -> ");
-		builder.append(Joiner.on(",").join(outgoing));
+		builder.append(value).append(" -> ");
+		
+		outgoing.entrySet().forEach(e -> {
+			builder.append(e.getKey()).append("[").append(e.getValue()).append("]").append(" ");
+		});
+		
 		return builder.toString();
 	}
 }
