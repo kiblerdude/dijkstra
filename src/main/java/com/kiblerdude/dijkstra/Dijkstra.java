@@ -36,32 +36,38 @@ public class Dijkstra {
 		processed.add(n);
 		unprocessed.remove(n);
 
-		// while (!processed.contains(to)) {
-		getShortestEdge(processed, unprocessed, distances);
-		// find the edge with the minimum value from processed nodes to
-		// unprocessed nodes
-		// TODO filter edges already processed
+		while (!processed.contains(to) || !unprocessed.isEmpty()) {
+			Integer node = getShortestEdge(processed, unprocessed, distances);
+			processed.add(node);
+			unprocessed.remove(node);
+		}
 
-		// }
-
-		return NO_PATH_LENGTH;
+		return distances[to];
 	}
 
-	public Optional<Node> getShortestEdge(Set<Integer> processed, Set<Integer> unprocessed, Integer[] distances) {
+	public Integer getShortestEdge(Set<Integer> processed, Set<Integer> unprocessed, Integer[] distances) {
 
+		Integer minNode = -1;
+		Integer minDistance = NO_PATH_LENGTH;
 
-		processed.stream().forEach(p -> {
+		for (Integer p : processed) {
 			Node from = graph.nodes.get(p);
 			Optional<Entry<Integer, Integer>> edge = from.outgoing.entrySet().stream()
 				.filter(v -> unprocessed.contains(v.getKey()))
 				.min((e1, e2) -> Integer.compare(distances[p] + e1.getValue(), distances[p] + e2.getValue()));
 			
 			if (edge.isPresent()) {
-				System.out.println(edge.get());
+				Integer distance = distances[p] + edge.get().getValue();
+				if (distance < minDistance) {
+					minNode = edge.get().getKey();
+					minDistance = distance;
+				}
 			}
-		});
-		
-		return Optional.empty();
+		}
+		System.out.println(minNode + " " + minDistance);		
+		distances[minNode] = minDistance;
+
+		return minNode;
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -82,6 +88,6 @@ public class Dijkstra {
 
 		System.out.println(graph);
 
-		new Dijkstra(graph).shortestPath(1, 4);
+		System.out.println(new Dijkstra(graph).shortestPath(1, 4));
 	}
 }
