@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
@@ -47,7 +50,7 @@ public class Dijkstra {
 
 	public Integer getShortestEdge(Set<Integer> processed, Set<Integer> unprocessed, Integer[] distances) {
 
-		Integer minNode = -1;
+		Integer minNode = 0;
 		Integer minDistance = NO_PATH_LENGTH;
 
 		for (Integer p : processed) {
@@ -64,15 +67,15 @@ public class Dijkstra {
 				}
 			}
 		}
-		System.out.println(minNode + " " + minDistance);		
+		//System.out.println(minNode + " " + minDistance);		
 		distances[minNode] = minDistance;
 
 		return minNode;
 	}
 
 	public static void main(String[] args) throws IOException {
-		// Files.newBufferedReader(Paths.get("dijkstraData.txt"));
-		BufferedReader reader = Files.newBufferedReader(Paths.get("dijkstraTest.txt"));
+		BufferedReader reader = Files.newBufferedReader(Paths.get("dijkstraData.txt"));
+		//BufferedReader reader = Files.newBufferedReader(Paths.get("dijkstraTest.txt"));
 		Graph graph = new Graph();
 
 		reader.lines().forEach(line -> {
@@ -85,9 +88,15 @@ public class Dijkstra {
 				graph.addEdge(vertex, to, length);
 			}
 		});
-
-		System.out.println(graph);
-
-		System.out.println(new Dijkstra(graph).shortestPath(1, 4));
+		
+		// TEST CODE
+		//System.out.println(graph);		
+		//System.out.println(new Dijkstra(graph).shortestPath(1, 4));
+		//System.out.println(new Dijkstra(graph).shortestPath(4, 1));
+		Dijkstra dijkstra = new Dijkstra(graph);
+		List<Integer> targets = Lists.newArrayList(7,37,59,82,99,115,133,165,188,197);
+		targets.forEach(target -> {
+			System.out.print(dijkstra.shortestPath(1, target) + ",");
+		});
 	}
 }
